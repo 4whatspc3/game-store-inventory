@@ -1,11 +1,14 @@
 import express from 'express';
 import path from 'path';
+import logger from './middleware/logger.js';
 import homeRouter from './routes/homeRouter.js';
 
 const app = express();
 
 app.set("views", path.join(process.cwd(), "views"));
 app.set("view engine", "ejs");
+
+app.use(logger);
 
 app.use("/", homeRouter);
 
