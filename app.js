@@ -3,6 +3,7 @@ import path from 'path';
 import logger from './middleware/logger.js';
 import errorHandler from './middleware/errorHandler.js';
 import homeRouter from './routes/homeRouter.js';
+import NotFoundHandler from './middleware/NotFoundHandler.js';
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.set("view engine", "ejs");
 app.use(logger);
 
 app.use("/", homeRouter);
+
+app.use(NotFoundHandler);
 
 app.use(errorHandler);
 
