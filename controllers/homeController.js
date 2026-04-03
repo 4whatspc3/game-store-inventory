@@ -1,5 +1,5 @@
 const homeController = (req, res, next) => {
-    res.send("Hello World");
+    res.render("index", { title: "Home Page", message: "Hello World!!!" });
 };
 
 export default homeController;
