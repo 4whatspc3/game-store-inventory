@@ -6,6 +6,13 @@
     <title>Document</title>
 </head>
 <body>
+    <% if(locals.errors) { %>
+        <ul>
+            <% errors.forEach((err) => { %>
+                <li><%= err.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
     <section aria-label="form-section" class="form-section">
     <form method="POST" action="/form">
         <div>
