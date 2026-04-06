@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { formGet, formPost } from "../controllers/formController.js";
+import { formGet, formPost, formGetID } from "../controllers/formController.js";
 
 const formRouter = Router();
+
+formRouter.get("/:id", formGetID);
 
 formRouter.get("/", formGet);
 

@@ -8,11 +8,27 @@ const formGet = (req, res, next) => {
     }
 }
 
+const formGetID = (req, res, next) => {
+    try {
+        const item = messages.find((el) => el.id === Number(req.params.id));
+
+        if(!item) {
+            throw new NotFoundError('Book not found with the provided ID');
+        }
+
+        res.render("itemByID", item);
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 const formPost = (req, res, next) => {
     try {
         const { user, message } = req.body;
 
         messages.push({
+            id : messages.length,
             user,
             message,
             added : new Date(),
@@ -26,4 +42,4 @@ const formPost = (req, res, next) => {
     }
 }
 
-export { formGet, formPost };
+export { formGet, formPost, formGetID };
