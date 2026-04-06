@@ -1,4 +1,4 @@
-const messages = [];
+import messages from "../db/db.js";
 
 const formGet = (req, res, next) => {
     try {

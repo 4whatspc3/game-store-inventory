@@ -8,7 +8,17 @@
 <body>
     <header> <%= title %></header>
     <main>
-        <h1><%= message %> </h1>
+        <ul>
+            <% messages.forEach((el) => { %>
+                <li>
+                    <small><%= el.id %></small>
+                    <h1><%= el.user %></h1>
+                    <p><%= el.message %></p>
+                    <time><%= el.added %></time>
+                </li>
+            <% }) %>
+        </ul>
+        <a href="/form">Insert new data:</a>
     </main>
 </body>
 </html>
