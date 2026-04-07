@@ -1,3 +1,7 @@
-const messages = [];
+let messages = [];
 
-export default messages;
+let counter = -1;
+
+const increase = () => { counter++ }
+
+export {messages, increase, counter};
