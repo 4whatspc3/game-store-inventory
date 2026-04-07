@@ -16,6 +16,9 @@
                     <p><%= el.message %></p>
                     <time><%= el.added %></time>
                     <a href="/form/<%= el.id %>">More details</a>
+                    <form action="/form/<%= el.id %>/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
                 </li>
             <% }) %>
         </ul>

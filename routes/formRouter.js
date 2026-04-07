@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { formGet, formPost, formGetID, updateItemGet, updateItemPost } from "../controllers/formController.js";
+import { formGet, formPost, formGetID, updateItemGet, updateItemPost, deleteItem } from "../controllers/formController.js";
 import formValidator from "../validators/formValidator.js";
 import validate from "../validators/validate.js";
 
 const formRouter = Router();
+
+formRouter.post("/:id/delete", deleteItem);
 
 formRouter.get("/:id/update", updateItemGet);
 formRouter.post("/:id/update", formValidator, validate, updateItemPost);

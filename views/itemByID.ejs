@@ -12,5 +12,8 @@
     <time><%= added %></time>
     <a href="/">Back to Home page</a>
     <a href="/form/<%=id%>/update">update</a>
+    <form action="/form/<%= id %>/delete" method="POST">
+        <button type="submit">Delete</button>
+    </form>
 </body>
 </html>

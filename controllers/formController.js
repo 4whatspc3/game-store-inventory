@@ -1,4 +1,4 @@
-import {messages, increase, counter} from "../db/db.js";
+import messages from "../db/db.js";
 
 const formGet = (req, res, next) => {
     try {
@@ -27,10 +27,8 @@ const formPost = (req, res, next) => {
     try {
         const { user, message } = req.body;
 
-        increase();
-
         messages.push({
-            id : counter,
+            id : messages.length,
             user,
             message,
             added : new Date(),
@@ -74,5 +72,25 @@ const updateItemPost = (req, res, next) => {
     }
 }
 
+const deleteItem = (req, res, next) => {
+    try {
+        const itemID = Number(req.params.id);
 
-export { formGet, formPost, formGetID, updateItemGet, updateItemPost };
+        const newMessages = messages.filter((el) => el.id !== itemID );
+
+        newMessages.forEach((el, index) => el.id = index);
+
+        messages.length = 0;
+
+        messages.push(...newMessages);
+
+        console.log(messages);
+
+        res.redirect("/");
+
+    } catch (error) {
+        next (error)
+    }
+}
+
+export { formGet, formPost, formGetID, updateItemGet, updateItemPost, deleteItem };
