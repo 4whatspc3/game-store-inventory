@@ -5,7 +5,6 @@ import logger from './middleware/logger.js';
 import errorHandler from './middleware/errorHandler.js';
 import homeRouter from './routes/homeRouter.js';
 import NotFoundHandler from './middleware/NotFoundHandler.js';
-import formRouter from './routes/formRouter.js';
 import adminRouter from './routes/adminRouter.js';
 
 const app = express();
@@ -18,8 +17,6 @@ app.use(express.urlencoded({extended : true}));
 app.use(logger);
 
 app.use("/admin", adminRouter);
-
-app.use("/form", formRouter);
 
 app.use("/", homeRouter);
 
