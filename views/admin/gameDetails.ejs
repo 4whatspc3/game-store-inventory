@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= game.name %></title>
+</head>
+<body>
+    <img src="<%= game.background_image %>" alt="<%= game.name %>" style="max-width:400px; height:auto;">
+    
+    <h1><%= game.name %></h1>
+    
+    <p>Released: <%= game.released %></p>
+    <p>Rating: <%= game.rating %> / <%= game.rating_top %></p>
+    <p>Metacritic: <%= game.metacritic %></p>
+    <p>Playtime: <%= game.playtime %>h</p>
+    <p>ESRB: <%= game.esrb_rating.name %></p>
+
+    <h2>Genres</h2>
+    <ul>
+        <% game.genres.forEach((genre) => { %>
+            <li><%= genre.name %></li>
+        <% }) %>
+    </ul>
+
+    <h2>Platforms</h2>
+    <ul>
+        <% game.platforms.forEach((el) => { %>
+            <li><%= el.platform.name %></li>
+        <% }) %>
+    </ul>
+
+    <h2>Developers</h2>
+    <ul>
+        <% game.developers.forEach((dev) => { %>
+            <li><%= dev.name %></li>
+        <% }) %>
+    </ul>
+
+    <h2>Description</h2>
+    <p><%- game.description %></p>
+
+    <form action="/admin/games/add" method="POST">
+        <input type="hidden" name="rawg_id" value="<%= game.id %>">
+        <label>Price: <input type="number" name="price" step="0.01" required></label>
+        <label>Stock: <input type="number" name="stock" required></label>
+        <button type="submit">Add to store</button>
+    </form>
+
+    <a href="/admin">Back to search</a>
+</body>
+</html>

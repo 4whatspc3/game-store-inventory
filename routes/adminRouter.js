@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { adminForms, adminSearchGet } from "../controllers/adminController.js";
+import { adminForms, getGameDetailsController, getGamesController } from "../controllers/adminController.js";
 
 const adminRouter = Router();
 
-adminRouter.get("/search", adminSearchGet);
+adminRouter.get("/search/:id/details/", getGameDetailsController)
+
+adminRouter.get("/search", getGamesController);
 
 adminRouter.get("/", adminForms);
 

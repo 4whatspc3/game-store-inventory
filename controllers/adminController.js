@@ -1,4 +1,4 @@
-import { searchForGame } from "../db/queries.js";
+import { getGameDetails, getGames } from "../db/queries.js";
 
 const adminForms = (req, res, next) => {
     try {
@@ -8,11 +8,11 @@ const adminForms = (req, res, next) => {
     }
 }
 
-const adminSearchGet = async (req, res, next) => {
+const getGamesController = async (req, res, next) => {
     try {
         const { query } = req.query;
 
-        const data = await searchForGame(query);
+        const data = await getGames(query);
 
         console.log(data);
 
@@ -23,4 +23,16 @@ const adminSearchGet = async (req, res, next) => {
     }
 }
 
-export { adminSearchGet, adminForms };
+const getGameDetailsController = async (req, res, next) => {
+    try {
+        const data = await getGameDetails(Number(req.params.id));
+
+        console.log(data);
+
+        res.render("admin/gameDetails", { game : data });
+    } catch (error) {
+        next(error)
+    }
+};
+
+export { getGamesController, adminForms, getGameDetailsController };

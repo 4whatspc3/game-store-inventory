@@ -18,7 +18,9 @@
                 <h2><%= game.name %></h2>
                 <p>Released: <%= game.released %></p>
                 <p>Rating: <%= game.rating %></p>
-            </li>    
+                <p>ID: <%= game.id %></p>
+            </li>
+            <a href="/admin/search/<%= game.id %>/details">Add to store</a>    
             <% }) %>
         </ul>
     <% } %>
