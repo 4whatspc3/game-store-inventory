@@ -16,4 +16,32 @@ const getGameDetails = async (id) => {
     return data;
 }
 
-export { getGames, getGameDetails };
+const insertNewGame = async (title, description, release_date, image_url, price, stock) => {
+    const { rows } = await pool.query(`INSERT INTO games (title, description, release_date, image_url, price, stock)
+                      VALUES ($1, $2, $3, $4, $5, $6)
+                      RETURNING id`,
+                      [title, description, release_date, image_url, price, stock]
+                    );
+
+    return rows[0].id
+}
+
+const insertNewGenre = async (name) => {
+    let { rows } = await pool.query(`INSERT INTO genres (name) VALUES ($1)
+                     ON CONFLICT (name) DO NOTHING
+                     RETURNING id`, 
+                     [name]);
+
+    if (rows[0] === undefined){
+        ({ rows } = await pool.query(`SELECT id FROM genres WHERE name = $1`, [name]));
+    }
+
+    return rows[0].id;
+
+}
+
+const insertGameGenre = async (game_id, genre_id) => {
+    const { rows } = await pool.query(`INSERT INTO games_genres (game_id, genre_id) VALUES ($1, $2)`, [game_id, genre_id]);
+}
+
+export { getGames, getGameDetails, insertNewGenre, insertNewGame, insertGameGenre };

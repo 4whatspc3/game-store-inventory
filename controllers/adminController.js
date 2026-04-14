@@ -1,4 +1,4 @@
-import { getGameDetails, getGames } from "../db/queries.js";
+import { getGameDetails, getGames, insertGameGenre, insertNewGame, insertNewGenre } from "../db/queries.js";
 
 const adminForms = (req, res, next) => {
     try {
@@ -14,8 +14,6 @@ const getGamesController = async (req, res, next) => {
 
         const data = await getGames(query);
 
-        console.log(data);
-
         res.render("admin/listGames", { games : data.results });
 
     } catch (error) {
@@ -27,12 +25,29 @@ const getGameDetailsController = async (req, res, next) => {
     try {
         const data = await getGameDetails(Number(req.params.id));
 
-        console.log(data);
-
         res.render("admin/gameDetails", { game : data });
     } catch (error) {
         next(error)
     }
 };
 
-export { getGamesController, adminForms, getGameDetailsController };
+const adminAddGame = async (req, res, next) => {
+    try{
+        const { rawg_id, price, stock } = req.body;
+
+        const game = await getGameDetails(Number(rawg_id));
+
+        const gameId = await insertNewGame(game.name, game.description_raw, game.released, game.background_image, price, stock);
+
+        for (const genre of game.genres) {
+            const genreId = await insertNewGenre(genre.name);
+            await insertGameGenre(gameId, genreId)
+        }
+        
+        res.redirect("/");
+    } catch (error) {
+        next (error)
+    }
+}
+
+export { getGamesController, adminForms, getGameDetailsController, adminAddGame };
