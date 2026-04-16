@@ -1,15 +1,15 @@
 import { body } from "express-validator";
 
 const formValidator = [
-    body("user")
+    body("price")
         .trim()
-        .notEmpty().withMessage("Name is required")
-        .isLength({ min : 2, max : 50}).withMessage("Name must be between 2 and 50 characters"),
+        .notEmpty().withMessage("Price is required")
+        .isFloat({ min: 0.01 }).withMessage("Price must be a positive number"),
 
-    body("message")
+    body("stock")
         .trim()
-        .notEmpty().withMessage("Message is required")
-        .isLength({min:5, max:500}).withMessage("Message must be between 5 and 500 characters"),
+        .notEmpty().withMessage("Stock quantity is required")
+        .isInt({ min: 0 }).withMessage("Stock must be a non-negative integer"),
 ];
 
 export default formValidator;

@@ -40,12 +40,7 @@
     <h2>Description</h2>
     <p><%- game.description %></p>
 
-    <form action="/admin/games/add" method="POST">
-        <input type="hidden" name="rawg_id" value="<%= game.id %>">
-        <label>Price: <input type="number" name="price" step="0.01" required></label>
-        <label>Stock: <input type="number" name="stock" required></label>
-        <button type="submit">Add to store</button>
-    </form>
+    <%- include("./addGame", {rawg_id: game.id}) %>
 
     <a href="/admin">Back to search</a>
 </body>

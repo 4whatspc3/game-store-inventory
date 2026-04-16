@@ -1,0 +1,14 @@
+<form action="/admin/games/add" method="POST">
+    <% if(locals.errors) { %>
+        <ul>
+            <% errors.forEach((err) => { %>
+                <li><%= err.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <input type="hidden" name="rawg_id" value="<%= rawg_id %>">
+    <label>Price: <input type="number" name="price" step="0.01" required value="<%= locals.formData ? formData.price : '' %>"></label>
+    <label>Stock: <input type="number" name="stock" required value="<%= locals.formData ? formData.stock : '' %>"></label>
+    <button type="submit">Add to store</button>
+</form>
