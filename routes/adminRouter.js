@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { adminAddGame, 
         adminDeleteGame, 
+        adminEditGameGet, 
+        adminEditGamePost, 
         adminForms, 
         adminLibrary, 
         getGameDetailsController, 
@@ -11,6 +13,10 @@ import validate from "../validators/validate.js";
 const adminRouter = Router();
 
 adminRouter.post("/games/:id/delete", adminDeleteGame);
+
+adminRouter.get("/games/:id/edit", adminEditGameGet);
+
+adminRouter.post("/games/:id/edit", adminEditGamePost);
 
 adminRouter.post("/games/add", formValidator, validate, adminAddGame);
 

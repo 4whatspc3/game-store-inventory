@@ -1,10 +1,12 @@
 import { deleteGame, 
         getAllGames, 
+        getGameById, 
         getGameDetails, 
         getGames, 
         insertGameGenre, 
         insertNewGame, 
-        insertNewGenre } from "../db/queries.js";
+        insertNewGenre, 
+        updateGame} from "../db/queries.js";
 
 const adminForms = (req, res, next) => {
     try {
@@ -65,6 +67,26 @@ const adminDeleteGame = async (req, res, next) => {
     }
 }
 
+
+const adminEditGameGet = async (req, res, next) => {
+    try {
+        const game = await getGameById(Number(req.params.id));
+        res.render("admin/editGame", { game });
+    } catch (error) {
+        next(error);
+    }
+}
+
+const adminEditGamePost = async (req, res, next) => {
+    try {
+        const { price, stock } = req.body;
+        await updateGame(Number(req.params.id), price, stock);
+        res.redirect("/admin/library");
+    } catch (error) {
+        next(error);
+    }
+}
+
 const adminLibrary = async (req, res, next) => {
     try {
         const games = await getAllGames();
@@ -79,4 +101,6 @@ export { getGamesController,
         getGameDetailsController, 
         adminAddGame,
         adminDeleteGame,
-        adminLibrary };
+        adminLibrary,
+        adminEditGameGet,
+        adminEditGamePost };

@@ -49,8 +49,20 @@ const deleteGame = async (id) => {
 }
 
 const getAllGames = async () => {
-    const { rows } = await pool.query("SELECT * FROM games");
+    const { rows } = await pool.query("SELECT * FROM games ORDER BY title ASC");
     return rows;
+}
+
+const getGameById = async (id) => {
+    const { rows } = await pool.query("SELECT * FROM games WHERE id = $1", [id]);
+    return rows[0];
+}
+
+const updateGame = async (id, price, stock) => {
+    await pool.query(
+        "UPDATE games SET price = $1, stock = $2 WHERE id = $3",
+        [price, stock, id]
+    );
 }
 
 export { getGames, 
@@ -59,4 +71,6 @@ export { getGames,
         insertNewGame, 
         insertGameGenre,
         deleteGame,
-        getAllGames};
+        getAllGames,
+        updateGame,
+        getGameById};
