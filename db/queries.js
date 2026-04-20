@@ -44,4 +44,19 @@ const insertGameGenre = async (game_id, genre_id) => {
     const { rows } = await pool.query(`INSERT INTO games_genres (game_id, genre_id) VALUES ($1, $2)`, [game_id, genre_id]);
 }
 
-export { getGames, getGameDetails, insertNewGenre, insertNewGame, insertGameGenre };
+const deleteGame = async (id) => {
+    await pool.query("DELETE FROM games WHERE id = $1", [id]);
+}
+
+const getAllGames = async () => {
+    const { rows } = await pool.query("SELECT * FROM games");
+    return rows;
+}
+
+export { getGames, 
+        getGameDetails, 
+        insertNewGenre, 
+        insertNewGame, 
+        insertGameGenre,
+        deleteGame,
+        getAllGames};

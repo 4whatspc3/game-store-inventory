@@ -1,4 +1,10 @@
-import { getGameDetails, getGames, insertGameGenre, insertNewGame, insertNewGenre } from "../db/queries.js";
+import { deleteGame, 
+        getAllGames, 
+        getGameDetails, 
+        getGames, 
+        insertGameGenre, 
+        insertNewGame, 
+        insertNewGenre } from "../db/queries.js";
 
 const adminForms = (req, res, next) => {
     try {
@@ -44,10 +50,33 @@ const adminAddGame = async (req, res, next) => {
             await insertGameGenre(gameId, genreId)
         }
         
-        res.redirect("/");
+        res.redirect("/admin/library");
     } catch (error) {
         next (error)
     }
 }
 
-export { getGamesController, adminForms, getGameDetailsController, adminAddGame };
+const adminDeleteGame = async (req, res, next) => {
+    try {
+        await deleteGame(Number(req.params.id));
+        res.redirect("/admin/library");
+    } catch (error) {
+        next(error);
+    }
+}
+
+const adminLibrary = async (req, res, next) => {
+    try {
+        const games = await getAllGames();
+        res.render("admin/library", { games });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { getGamesController, 
+        adminForms, 
+        getGameDetailsController, 
+        adminAddGame,
+        adminDeleteGame,
+        adminLibrary };

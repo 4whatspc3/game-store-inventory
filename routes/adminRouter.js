@@ -1,13 +1,22 @@
 import { Router } from "express";
-import { adminAddGame, adminForms, getGameDetailsController, getGamesController } from "../controllers/adminController.js";
+import { adminAddGame, 
+        adminDeleteGame, 
+        adminForms, 
+        adminLibrary, 
+        getGameDetailsController, 
+        getGamesController } from "../controllers/adminController.js";
 import formValidator from "../validators/formValidator.js";
 import validate from "../validators/validate.js";
 
 const adminRouter = Router();
 
+adminRouter.post("/games/:id/delete", adminDeleteGame);
+
 adminRouter.post("/games/add", formValidator, validate, adminAddGame);
 
-adminRouter.get("/search/:id/details/", getGameDetailsController)
+adminRouter.get("/search/:id/details/", getGameDetailsController);
+
+adminRouter.get("/library", adminLibrary);
 
 adminRouter.get("/search", getGamesController);
 
