@@ -16,7 +16,6 @@
                     <img src="<%= game.image_url %>" alt="<%= game.title %>" style="max-width:100px;">
                     <h2><%= game.title %></h2>
                     <p>Price: <%= game.price %></p>
-                    <p>Stock: <%= game.stock %></p>
                     <a href="/admin/games/<%= game.id %>/edit">Edit</a>
                     <form action="/admin/games/<%= game.id %>/delete" method="POST">
                         <button type="submit">Delete</button>

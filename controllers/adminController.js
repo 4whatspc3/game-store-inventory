@@ -41,11 +41,11 @@ const getGameDetailsController = async (req, res, next) => {
 
 const adminAddGame = async (req, res, next) => {
     try{
-        const { rawg_id, price, stock } = req.body;
+        const { rawg_id, price } = req.body;
 
         const game = await getGameDetails(Number(rawg_id));
 
-        const gameId = await insertNewGame(game.name, game.description_raw, game.released, game.background_image, price, stock);
+        const gameId = await insertNewGame(game.name, game.description_raw, game.released, game.background_image, price);
 
         for (const genre of game.genres) {
             const genreId = await insertNewGenre(genre.name);
@@ -79,8 +79,8 @@ const adminEditGameGet = async (req, res, next) => {
 
 const adminEditGamePost = async (req, res, next) => {
     try {
-        const { price, stock } = req.body;
-        await updateGame(Number(req.params.id), price, stock);
+        const { price } = req.body;
+        await updateGame(Number(req.params.id), price);
         res.redirect("/admin/library");
     } catch (error) {
         next(error);

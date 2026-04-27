@@ -16,11 +16,11 @@ const getGameDetails = async (id) => {
     return data;
 }
 
-const insertNewGame = async (title, description, release_date, image_url, price, stock) => {
-    const { rows } = await pool.query(`INSERT INTO games (title, description, release_date, image_url, price, stock)
+const insertNewGame = async (title, description, release_date, image_url, price) => {
+    const { rows } = await pool.query(`INSERT INTO games (title, description, release_date, image_url, price)
                       VALUES ($1, $2, $3, $4, $5, $6)
                       RETURNING id`,
-                      [title, description, release_date, image_url, price, stock]
+                      [title, description, release_date, image_url, price]
                     );
 
     return rows[0].id
@@ -58,10 +58,10 @@ const getGameById = async (id) => {
     return rows[0];
 }
 
-const updateGame = async (id, price, stock) => {
+const updateGame = async (id, price) => {
     await pool.query(
-        "UPDATE games SET price = $1, stock = $2 WHERE id = $3",
-        [price, stock, id]
+        "UPDATE games SET price = $1 = $2 WHERE id = $3",
+        [price, id]
     );
 }
 

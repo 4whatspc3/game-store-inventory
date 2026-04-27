@@ -9,7 +9,6 @@ CREATE TABLE games (
     description TEXT,
     release_date DATE,
     price DECIMAL(10, 2) NOT NULL,
-    stock INTEGER NOT NULL DEFAULT 0,
     image_url TEXT
 );
 
