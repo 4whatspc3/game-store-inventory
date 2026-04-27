@@ -18,7 +18,7 @@ const getGameDetails = async (id) => {
 
 const insertNewGame = async (title, description, release_date, image_url, price) => {
     const { rows } = await pool.query(`INSERT INTO games (title, description, release_date, image_url, price)
-                      VALUES ($1, $2, $3, $4, $5, $6)
+                      VALUES ($1, $2, $3, $4, $5)
                       RETURNING id`,
                       [title, description, release_date, image_url, price]
                     );
@@ -60,7 +60,7 @@ const getGameById = async (id) => {
 
 const updateGame = async (id, price) => {
     await pool.query(
-        "UPDATE games SET price = $1 = $2 WHERE id = $3",
+        "UPDATE games SET price = $1 WHERE id = $2",
         [price, id]
     );
 }
