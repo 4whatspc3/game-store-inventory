@@ -1,4 +1,6 @@
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
+import adminAuth from "../middleware/adminAuth.js";
 import { adminAddGame, 
         adminDeleteGame, 
         adminEditGameGet, 
@@ -7,10 +9,23 @@ import { adminAddGame,
         adminLibrary, 
         getGameDetailsController, 
         getGamesController } from "../controllers/adminController.js";
+import { adminLoginGet, adminLoginPost, adminLogout } from "../controllers/adminLoginController.js";
 import formValidator from "../validators/formValidator.js";
 import validate from "../validators/validate.js";
 
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 10,
+    message: "Too many login attempts, please try again later.",
+});
+
 const adminRouter = Router();
+
+adminRouter.get("/login", adminLoginGet);
+adminRouter.post("/login", loginLimiter, adminLoginPost);
+adminRouter.post("/logout", adminLogout);
+
+adminRouter.use(adminAuth);
 
 adminRouter.post("/games/:id/delete", adminDeleteGame);
 

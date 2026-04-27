@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from 'express';
+import session from "express-session";
 import path from 'path';
 import logger from './middleware/logger.js';
 import errorHandler from './middleware/errorHandler.js';
@@ -15,6 +16,17 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({extended : true}));
 
 app.use(logger);
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false, 
+        maxAge: 1000 * 60 * 60 * 2, // 2 horas
+    }
+}));
 
 app.use("/admin", adminRouter);
 
