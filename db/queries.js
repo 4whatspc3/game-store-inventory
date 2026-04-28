@@ -49,7 +49,16 @@ const deleteGame = async (id) => {
 }
 
 const getAllGames = async () => {
-    const { rows } = await pool.query("SELECT * FROM games ORDER BY title ASC");
+        const { rows } = await pool.query(`
+            SELECT 
+                games.*,
+                JSON_AGG(JSON_BUILD_OBJECT('id', genres.id, 'name', genres.name)) AS genres
+            FROM games
+            LEFT JOIN games_genres ON games.id = games_genres.game_id
+            LEFT JOIN genres ON games_genres.genre_id = genres.id
+            GROUP BY games.id
+            ORDER BY games.title ASC
+        `);
     return rows;
 }
 
