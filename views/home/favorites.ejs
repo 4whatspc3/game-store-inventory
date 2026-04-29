@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+</head>
+<body>
+    <header>
+        <h1>Your Favorites</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/cart">Cart (<%= locals.cart ? cart.length : 0 %>)</a>
+        </nav>
+    </header>
+
+    <main>
+        <% if(favorites.length === 0) { %>
+            <p>No favorites yet.</p>
+        <% } else { %>
+            <ul>
+                <% favorites.forEach((game) => { %>
+                    <li>
+                        <img src="<%= game.image_url %>" alt="<%= game.title %>" style="max-width:200px;">
+                        <h2><%= game.title %></h2>
+                        <p>Price: $<%= game.price %></p>
+
+                        <form action="/cart/add" method="POST">
+                            <input type="hidden" name="game_id" value="<%= game.id %>">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+
+                        <form action="/favorites/remove" method="POST">
+                            <input type="hidden" name="game_id" value="<%= game.id %>">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </main>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
