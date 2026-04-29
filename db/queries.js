@@ -67,6 +67,28 @@ const getGameById = async (id) => {
     return rows[0];
 }
 
+const getGamesByGenre = async (genreId) => {
+    const { rows } = await pool.query(`
+        SELECT 
+            games.*,
+            JSON_AGG(JSON_BUILD_OBJECT('id', genres.id, 'name', genres.name)) AS genres
+        FROM games
+        LEFT JOIN games_genres ON games.id = games_genres.game_id
+        LEFT JOIN genres ON games_genres.genre_id = genres.id
+        WHERE games_genres.genre_id = $1
+        GROUP BY games.id
+        ORDER BY games.title ASC
+    `, [genreId]);
+
+    return rows;
+}
+
+const getGenreById = async (id) => {
+    const { rows } = await pool.query("SELECT * FROM genres WHERE id = $1", [id]);
+    
+    return rows[0];
+}
+
 const updateGame = async (id, price) => {
     await pool.query(
         "UPDATE games SET price = $1 WHERE id = $2",
@@ -82,4 +104,6 @@ export { getGames,
         deleteGame,
         getAllGames,
         updateGame,
-        getGameById};
+        getGameById,
+        getGamesByGenre,
+        getGenreById};
