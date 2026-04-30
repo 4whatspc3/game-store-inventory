@@ -1,4 +1,5 @@
 import { getGameById } from "../db/queries.js";
+import { addGame, removeGame } from "../utils/addAndRemove.js";
 
 const favoritesGet = (req, res, next) => {
     try {
@@ -19,11 +20,7 @@ const favoritesAdd = async (req, res, next) => {
             req.session.favorites = [];
         }
 
-        const alreadyAdded = req.session.favorites.some((el) => el.id === game.id);
-
-        if (!alreadyAdded) {
-            req.session.favorites.push(game);
-        }
+        addGame(req.session.favorites, game);
 
         res.redirect("/favorites");
     } catch (error) {
@@ -33,9 +30,7 @@ const favoritesAdd = async (req, res, next) => {
 
 const favoritesRemove = (req, res, next) => {
     try {
-        const gameId = Number(req.body.game_id);
-
-        req.session.favorites = req.session.favorites.filter((el) => el.id !== gameId);
+        req.session.favorites = removeGame(req.session.favorites, req.body.game_id);
 
         res.redirect("/favorites");
     } catch (error) {

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <header>
+        <h1>Your Cart</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/favorites">Favorites</a>
+        </nav>
+    </header>
+
+    <main>
+        <% if(cart.length === 0) { %>
+            <p>Your cart is empty.</p>
+        <% } else { %>
+            <ul>
+                <% let total = 0; %>
+                <% cart.forEach((game) => { %>
+                    <% total += Number(game.price); %>
+                    <li>
+                        <img src="<%= game.image_url %>" alt="<%= game.title %>" style="max-width:200px;">
+                        <h2><%= game.title %></h2>
+                        <p>Price: $<%= game.price %></p>
+
+                        <form action="/cart/remove" method="POST">
+                            <input type="hidden" name="game_id" value="<%= game.id %>">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+
+            <h2>Total: $<%= total.toFixed(2) %></h2>
+
+            <form action="/cart/checkout" method="POST">
+                <button type="submit">Confirm Purchase</button>
+            </form>
+        <% } %>
+    </main>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
