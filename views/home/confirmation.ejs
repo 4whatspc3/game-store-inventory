@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - Game Store</title>
+</head>
+<body>
+    <header>
+        <h1>Game Store</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/favorites">Favorites</a>
+            <a href="/cart">Cart (<%= locals.cart ? cart.length : 0 %>)</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="confirmation-message">
+            <h2>Order Confirmed!</h2>
+            <p>Thank you for your purchase. Your order has been processed successfully.</p>
+            <p>You can now find your games in your digital library or check your email for the receipt.</p>
+            
+            <a href="/">Return to Store</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> Game Store</p>
+    </footer>
+</body>
+</html>
