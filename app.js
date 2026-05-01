@@ -28,6 +28,12 @@ app.use(session({
     }
 }));
 
+app.use((req, res, next) => {
+    res.locals.cart = req.session.cart || [];
+
+    next();
+});
+
 app.use("/admin", adminRouter);
 
 app.use("/", homeRouter);
