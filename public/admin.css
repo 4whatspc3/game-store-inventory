@@ -101,6 +101,36 @@
     transform: translateX(-5px); /* Efeito sutil de deslocamento para a esquerda */
 }
 
+/* search */
+.search-wrapper {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 1rem;
+    margin: 2.5rem 0;
+}
+
+.search-form input {
+    flex: 1;
+    background: var(--surface-1);
+    border: 1px solid var(--border-medium);
+    padding: 1rem;
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.search-form input:focus {
+    outline: none;
+    border-color: var(--red-500);
+    background: var(--surface-2);
+}
+
 /* Mensagem de Erro */
 .error-message {
     background: rgba(204, 34, 34, 0.15);
