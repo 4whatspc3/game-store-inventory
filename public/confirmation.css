@@ -1,0 +1,57 @@
+.confirmation-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 2rem;
+}
+
+.confirmation-card {
+    text-align: center;
+    max-width: 600px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.confirmation-icon {
+    font-size: 5rem;
+    color: var(--red-500);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.confirmation-card .section-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsivo */
+    margin-bottom: 1rem;
+}
+
+.confirmation-card .section-divider {
+    margin: 0 auto 2.5rem auto;
+}
+
+.confirmation-text {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-subtext {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.confirmation-actions .btn {
+    min-width: 200px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
