@@ -1,0 +1,114 @@
+/* Container Principal */
+.admin-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, var(--red-deep) 0%, var(--surface-0) 100%);
+    padding: 1.5rem;
+}
+
+/* Card de Login */
+.login-card {
+    background: var(--surface-1);
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.login-card h1 {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: var(--text-primary);
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+/* Formulário e Inputs */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary); /* Melhor contraste que o muted */
+}
+
+.login-form input {
+    background: var(--surface-2);
+    border: 1px solid var(--border-medium);
+    padding: 0.9rem 1.2rem;
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: var(--red-500);
+    background: var(--surface-3);
+    box-shadow: 0 0 0 2px rgba(204, 34, 34, 0.2);
+}
+
+/* Botões e links */
+.login-card .btn-primary {
+    background-color: var(--red-600);
+    color: #ffffff ;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(163, 26, 26, 0.4);
+}
+
+.login-card .btn-primary:hover {
+    background-color: var(--red-500);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(163, 26, 26, 0.6);
+}
+
+.back-link {
+    display: block;
+    margin-top: 2rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--text-primary);
+    transform: translateX(-5px); /* Efeito sutil de deslocamento para a esquerda */
+}
+
+/* Mensagem de Erro */
+.error-message {
+    background: rgba(204, 34, 34, 0.15);
+    color: var(--red-300);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--red-800);
+    text-align: left;
+}
