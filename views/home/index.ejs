@@ -4,48 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Store</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
-    <header>
-        <h1>Game Store</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/favorites">Favorites</a>
-            <a href="/cart">Cart (<%= locals.cart ? cart.length : 0 %>)</a>
-        </nav>
-    </header>
+<header class="site-header">
+    <div class="site-logo">Game<span>Store</span></div>
+    <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/favorites">Favorites</a>
+        <a href="/cart">
+            Cart <span class="cart-badge"><%= locals.cart ? cart.length : 0 %></span>
+        </a>
+    </nav>
+</header>
 
-    <main>
+    <main class="store-main">
+        <h1 class="section-title">Discovery</h1>
+        <p class="section-subtitle">Explore the best of premium gaming</p>
+        <div class="section-divider"></div>
         <% if(games.length === 0) { %>
-            <p>No games available.</p>
+            <div class="empty-state">No games available at the moment.</div>
         <% } else { %>
-            <ul>
+            <ul class="games-grid">
                 <% games.forEach((game) => { %>
-                    <li>
-                        <img src="<%= game.image_url %>" alt="<%= game.title %>" style="max-width:200px;">
-                        <h2><%= game.title %></h2>
-                        <p>Released: <%= game.release_date %></p>
-                        <p>Price: $<%= game.price %></p>
+                    <li class="game-card">
+                        <div class="game-card__image-wrap">
+                            <img src="<%= game.image_url %>" alt="<%= game.title %>">
+                            <div class="game-card__overlay">
+                                <div class="game-card__quick-actions">
+                                    <a href="/games/<%= game.id %>" class="btn btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
 
-                        <ul>
-                            <% game.genres.forEach((genre) => { %>
-                                <li>
-                                    <a href="/genres/<%= genre.id %>"><%= genre.name %></a>
-                                </li>
-                            <% }) %>
-                        </ul>
+                        <div class="game-card__body">
+                            <div class="game-card__meta">
+                                <span class="game-card__release"><%= game.release_date %></span>
+                                <span class="game-card__price">$<%= game.price %></span>
+                            </div>
+                            
+                            <h2 class="game-card__title"><%= game.title %></h2>
 
-                        <a href="/games/<%= game.id %>">View details</a>
+                            <div class="game-card__genres">
+                                <% game.genres.forEach((genre) => { %>
+                                    <a href="/genres/<%= genre.id %>" class="genre-tag"><%= genre.name %></a>
+                                <% }) %>
+                            </div>
 
-                        <form action="/favorites/add" method="POST">
-                            <input type="hidden" name="game_id" value="<%= game.id %>">
-                            <button type="submit">Add to Favorites</button>
-                        </form>
+                            <div class="game-card__actions">
+                                <form action="/favorites/add" method="POST" style="flex:1">
+                                    <input type="hidden" name="game_id" value="<%= game.id %>">
+                                    <button type="submit" class="btn btn-ghost">Favorite</button>
+                                </form>
 
-                        <form action="/cart/add" method="POST">
-                            <input type="hidden" name="game_id" value="<%= game.id %>">
-                            <button type="submit">Add to Cart</button>
-                        </form>
+                                <form action="/cart/add" method="POST" style="flex:1">
+                                    <input type="hidden" name="game_id" value="<%= game.id %>">
+                                    <button type="submit" class="btn btn-outline">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
                     </li>
                 <% }) %>
             </ul>
