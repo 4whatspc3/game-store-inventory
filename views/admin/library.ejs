@@ -2,33 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Game Library</title>
-</head>
-<body>
-    <h1>Game Library</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Library | Admin</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/library.css"> </head>
+<body class="admin-body">
+    <div class="library-container">
+        <header class="library-header">
+            <h1 class="section-title">Game Library</h1>
+            <form action="/admin/logout" method="POST">
+                <button type="submit" class="btn btn-ghost">Logout</button>
+            </form>
+        </header>
 
-    <% if(games.length === 0) { %>
-        <p>No games in the library yet.</p>
-    <% } else { %>
-        <ul>
-            <% games.forEach((game) => { %>
-                <li>
-                    <img src="<%= game.image_url %>" alt="<%= game.title %>" style="max-width:100px;">
-                    <h2><%= game.title %></h2>
-                    <p>Price: <%= game.price %></p>
-                    <a href="/admin/games/<%= game.id %>/edit">Edit</a>
-                    <form action="/admin/games/<%= game.id %>/delete" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-            <% }) %>
-        </ul>
-    <% } %>
+        <div class="section-divider"></div>
 
-    <a href="/admin">Back to search</a>
-    
-    <form action="/admin/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+        <main>
+            <% if(games.length === 0) { %>
+                <div class="empty-state">
+                    <p>No games in the library yet.</p>
+                </div>
+            <% } else { %>
+                <ul class="library-list"> <% games.forEach((game) => { %>
+                        <li class="library-item">
+                            <img src="<%= game.image_url %>" alt="<%= game.title %>" class="library-item__image">
+                            
+                            <div class="library-item__info">
+                                <h2 class="library-item__title"><%= game.title %></h2>
+                                <p class="library-item__price">$<%= game.price %></p>
+                            </div>
+
+                            <div class="library-item-actions">
+                                <a href="/admin/games/<%= game.id %>/edit" class="btn btn-outline btn-edit">Edit</a>
+                                
+                                <form action="/admin/games/<%= game.id %>/delete" method="POST" onsubmit="return confirm('Are you sure?')">
+                                    <button type="submit" class="btn btn-ghost btn-delete">Delete</button>
+                                </form>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </main>
+
+        <footer class="library-footer">
+            <a href="/admin" class="back-link">← Back to search</a>
+        </footer>
+    </div>
 </body>
 </html>
