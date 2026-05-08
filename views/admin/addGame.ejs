@@ -1,13 +1,29 @@
-<form action="/admin/games/add" method="POST">
-    <% if(locals.errors) { %>
-        <ul>
-            <% errors.forEach((err) => { %>
-                <li><%= err.msg %></li>
-            <% }) %>
-        </ul>
-    <% } %>
+<div class="add-game-box">
+    <form action="/admin/games/add" method="POST" class="add-game-form">
+        <% if(locals.errors) { %>
+            <ul class="error-list">
+                <% errors.forEach((err) => { %>
+                    <li><%= err.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
 
-    <input type="hidden" name="rawg_id" value="<%= rawg_id %>">
-    <label>Price: <input type="number" name="price" step="0.01" required value="<%= locals.formData ? formData.price : '' %>"></label>
-    <button type="submit">Add to store</button>
-</form>
+        <input type="hidden" name="rawg_id" value="<%= rawg_id %>">
+        
+        <label>
+            Preço de Venda (BRL)
+            <div class="price-input-wrapper">
+                <input type="number" 
+                       name="price" 
+                       step="0.01" 
+                       required 
+                       placeholder="0,00"
+                       value="<%= locals.formData ? formData.price : '' %>">
+            </div>
+        </label>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Confirmar e Adicionar à Loja
+        </button>
+    </form>
+</div>

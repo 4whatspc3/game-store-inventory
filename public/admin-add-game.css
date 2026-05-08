@@ -1,0 +1,69 @@
+.add-game-box {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: rgba(204, 34, 34, 0.05);
+    border: 1px solid var(--red-900);
+    border-radius: var(--radius-md);
+}
+
+.add-game-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.add-game-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+
+/* Container para o input com o prefixo R$ */
+.price-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.price-input-wrapper::before {
+    content: "R$";
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.add-game-form input[type="number"] {
+    background: var(--surface-2);
+    border: 1px solid var(--border-medium);
+    padding: 0.8rem 1rem 0.8rem 3rem;
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    transition: var(--transition);
+    width: 100%;
+}
+
+.add-game-form input:focus {
+    outline: none;
+    border-color: var(--red-500);
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--red-500);
+    padding-left: 1rem;
+}
+
+.error-list li {
+    color: var(--red-400);
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
