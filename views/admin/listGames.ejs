@@ -3,28 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search Results | Admin</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/listGames.css">
 </head>
-<body>
-    <h1>Search Result</h1>
-    
-    <% if(games.length === 0) { %>
-        <p>No games found.</p>
-    <% } else { %>
-        <ul>
-            <% games.forEach((game) => { %>
-            <li>
-                <img src="<%= game.background_image %>" alt="<%= game.name %>" style="max-width:200px; height:auto;">
-                <h2><%= game.name %></h2>
-                <p>Released: <%= game.released %></p>
-                <p>Rating: <%= game.rating %></p>
-                <p>ID: <%= game.id %></p>
-            </li>
-            <a href="/admin/search/<%= game.id %>/details">Add to store</a>    
-            <% }) %>
-        </ul>
-    <% } %>
+<body class="admin-body">
+    <div class="results-container">
+        <h1 class="section-title">Search Results</h1>
+        <div class="section-divider" style="margin-left: 0;"></div>
 
-    <a href="/admin">Back to search</a>
+        <% if(games.length === 0) { %>
+            <div class="empty-state">
+                <p>No games found in the external database.</p>
+            </div>
+        <% } else { %>
+            <ul class="results-list">
+                <% games.forEach((game) => { %>
+                    <li class="result-item">
+                        <img src="<%= game.background_image %>" alt="<%= game.name %>" class="result-item__image">
+                        
+                        <div class="result-item__content">
+                            <h2 class="result-item__title"><%= game.name %></h2>
+                            <div class="result-item__details">
+                                <span>Released: <b><%= game.released %></b></span>
+                                <span>Rating: <b><%= game.rating %></b></span>
+                                <span>ID: <b><%= game.id %></b></span>
+                            </div>
+                        </div>
+
+                        <div class="result-item__actions">
+                            <a href="/admin/search/<%= game.id %>/details" class="btn btn-primary">Add to Store</a>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <footer style="margin-top: 3rem;">
+            <a href="/admin" class="back-link">← Back to search</a>
+        </footer>
+    </div>
 </body>
 </html>
