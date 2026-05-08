@@ -3,45 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= game.name %></title>
+    <title><%= game.name %> | Admin Details</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/admin-game-details.css">
 </head>
-<body>
-    <img src="<%= game.background_image %>" alt="<%= game.name %>" style="max-width:400px; height:auto;">
-    
-    <h1><%= game.name %></h1>
-    
-    <p>Released: <%= game.released %></p>
-    <p>Rating: <%= game.rating %> / <%= game.rating_top %></p>
-    <p>Metacritic: <%= game.metacritic %></p>
-    <p>Playtime: <%= game.playtime %>h</p>
-    <p>ESRB: <%= game.esrb_rating.name %></p>
+<body class="admin-body">
+    <div class="details-container">
+        <header class="details-hero">
+            <img src="<%= game.background_image %>" alt="<%= game.name %>" class="details-hero__image">
+            
+            <div class="details-hero__content">
+                <h1 class="section-title" style="text-align: left; margin: 0;"><%= game.name %></h1>
+                
+                <div class="details-meta">
+                    <div class="details-meta__item">Released <b><%= game.released %></b></div>
+                    <div class="details-meta__item">Rating <b><%= game.rating %> / <%= game.rating_top %></b></div>
+                    <div class="details-meta__item">Metacritic <b><%= game.metacritic || 'N/A' %></b></div>
+                    <div class="details-meta__item">ESRB <b><%= game.esrb_rating ? game.esrb_rating.name : 'Not Rated' %></b></div>
+                </div>
 
-    <h2>Genres</h2>
-    <ul>
-        <% game.genres.forEach((genre) => { %>
-            <li><%= genre.name %></li>
-        <% }) %>
-    </ul>
+                <%- include("./addGame", {rawg_id: game.id}) %>
+            </div>
+        </header>
 
-    <h2>Platforms</h2>
-    <ul>
-        <% game.platforms.forEach((el) => { %>
-            <li><%= el.platform.name %></li>
-        <% }) %>
-    </ul>
+        <div class="details-grid">
+            <section class="details-section">
+                <h2>Genres</h2>
+                <ul class="details-list">
+                    <% game.genres.forEach((genre) => { %>
+                        <li><%= genre.name %></li>
+                    <% }) %>
+                </ul>
+            </section>
 
-    <h2>Developers</h2>
-    <ul>
-        <% game.developers.forEach((dev) => { %>
-            <li><%= dev.name %></li>
-        <% }) %>
-    </ul>
+            <section class="details-section">
+                <h2>Platforms</h2>
+                <ul class="details-list">
+                    <% game.platforms.forEach((el) => { %>
+                        <li><%= el.platform.name %></li>
+                    <% }) %>
+                </ul>
+            </section>
 
-    <h2>Description</h2>
-    <p><%- game.description %></p>
+            <section class="details-section">
+                <h2>Developers</h2>
+                <ul class="details-list">
+                    <% game.developers.forEach((dev) => { %>
+                        <li><%= dev.name %></li>
+                    <% }) %>
+                </ul>
+            </section>
+        </div>
 
-    <%- include("./addGame", {rawg_id: game.id}) %>
+        <section class="details-section">
+            <h2>Description</h2>
+            <div class="details-description">
+                <%- game.description %>
+            </div>
+        </section>
 
-    <a href="/admin">Back to search</a>
+        <footer style="margin-top: 4rem;">
+            <a href="/admin" class="back-link">← Back to search</a>
+        </footer>
+    </div>
 </body>
 </html>
