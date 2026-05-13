@@ -45,7 +45,7 @@ html {
 }
 
 body {
-    background-color: var(--surface-0);
+    background: radial-gradient(circle at center, var(--red-deep) 0%, var(--surface-0) 100%);
     color: var(--text-primary);
     font-family: var(--font-body);
     font-weight: 300;
