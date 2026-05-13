@@ -1,10 +1,11 @@
-import { getAllGames, getGamesByGenre, getGenreById } from "../db/queries.js";
+import { getAllGames, getGamesByGenre, getGenreById, getAllGenres } from "../db/queries.js";
 
 const homeController = async (req, res, next) => {
     try {
         const games = await getAllGames();
+        const genres = await getAllGenres();
 
-        res.render("home/index", { games });
+        res.render("home/index", { games, genres });
     } catch (error) {
         next(error)
     }
@@ -16,8 +17,9 @@ const genreController = async (req, res, next) => {
 
         const genre = await getGenreById(id);
         const games = await getGamesByGenre(id);
+        const genres = await getAllGenres();
 
-        res.render("home/genre", { games, genre });
+        res.render("home/genre", { games, genre, genres });
     } catch (error) {
         next(error);
     }

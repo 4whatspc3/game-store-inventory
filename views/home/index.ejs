@@ -23,6 +23,16 @@
         <h1 class="section-title">Discovery</h1>
         <p class="section-subtitle">Explore the best of premium gaming</p>
         <div class="section-divider"></div>
+
+        <div class="filter-bar">
+            <select onchange="if(this.value) window.location.href='/genres/' + this.value">
+                <option value="">All Genres</option>
+                <% genres.forEach((genre) => { %>
+                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                <% }) %>
+            </select>
+        </div>
+        
         <% if(games.length === 0) { %>
             <div class="empty-state">No games available at the moment.</div>
         <% } else { %>

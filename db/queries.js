@@ -62,6 +62,11 @@ const getAllGames = async () => {
     return rows;
 }
 
+const getAllGenres = async () => {
+    const { rows } = await pool.query("SELECT * FROM genres ORDER BY name ASC");
+    return rows;
+}
+
 const getGameById = async (id) => {
     const { rows } = await pool.query("SELECT * FROM games WHERE id = $1", [id]);
     return rows[0];
@@ -103,6 +108,7 @@ export { getGames,
         insertGameGenre,
         deleteGame,
         getAllGames,
+        getAllGenres,
         updateGame,
         getGameById,
         getGamesByGenre,

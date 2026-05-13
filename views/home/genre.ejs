@@ -28,6 +28,15 @@
         <p class="section-subtitle">Curated selection of <%= genre.name.toLowerCase() %> titles</p>
         <div class="section-divider"></div>
 
+        <div class="filter-bar">
+            <select onchange="if(this.value) window.location.href='/genres/' + this.value">
+                <option value="">All Genres</option>
+                <% genres.forEach((genre) => { %>
+                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
         <% if(games.length === 0) { %>
             <div class="empty-state">
                 <p>No games found for this genre.</p>
