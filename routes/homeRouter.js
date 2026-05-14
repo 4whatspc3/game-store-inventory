@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { genreController, homeController } from '../controllers/homeController.js';
+import { genreController, homeController, userLibraryGet } from '../controllers/homeController.js';
 import { favoritesAdd, favoritesGet, favoritesRemove } from '../controllers/favoriteController.js';
 import { cartCheckout, cartAdd, cartRemove, cartGet } from '../controllers/cartController.js';
 
@@ -15,6 +15,8 @@ homeRouter.post("/cart/checkout", cartCheckout);
 homeRouter.post("/cart/add", cartAdd);
 homeRouter.post("/cart/remove", cartRemove);
 homeRouter.get("/cart", cartGet);
+
+homeRouter.get("/library", userLibraryGet);
 
 homeRouter.get("/", homeController);
 

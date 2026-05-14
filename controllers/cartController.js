@@ -42,8 +42,19 @@ const cartRemove = (req, res, next) => {
 
 const cartCheckout = (req, res, next) => {
     try {
-        req.session.cart = [];
+        if (!req.session.library) {
+            req.session.library = [];
+        }
 
+        req.session.cart.forEach((game) => {
+            const alreadyOwned = req.session.library.some((el) => el.id === game.id);
+            
+            if (!alreadyOwned) {
+                req.session.library.push(game);
+            }
+        });
+
+        req.session.cart = [];
         res.render("home/confirmation");
     } catch (error) {
         next(error);

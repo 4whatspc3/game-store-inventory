@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library - Game Store</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/filter.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-logo">Game<span>Store</span></div>
+        <nav class="site-nav">
+            <a href="/">Home</a>
+            <a href="/favorites">Favorites</a>
+            <a href="/cart">
+                Cart <span class="cart-badge"><%= cart.length %></span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="store-main">
+        <h1 class="section-title">My Library</h1>
+        <p class="section-subtitle">Your personal collection of adventures</p>
+        <div class="section-divider"></div>
+
+        <div class="filter-bar">
+            <select onchange="window.location.href = this.value ? '/genres/' + this.value : '/'">
+                <option value="">All Genres</option>
+                <% genres.forEach((genre) => { %>
+                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <% if(library.length === 0) { %>
+            <div class="empty-state">
+                <p>You haven't purchased any games yet.</p>
+                <a href="/" class="btn btn-primary">Browse the store</a>
+            </div>
+        <% } else { %>
+            <ul class="games-grid">
+                <% library.forEach((game) => { %>
+                    <li class="game-card">
+                        <div class="game-card__image-wrap">
+                            <img src="<%= game.image_url %>" alt="<%= game.title %>">
+                        </div>
+
+                        <div class="game-card__body">
+                            <div class="game-card__meta">
+                                <span class="game-card__release"><%= game.release_date %></span>
+                                <span class="game-card__status" style="color: #4caf50;">Owned</span>
+                            </div>
+                            
+                            <h2 class="game-card__title text-truncate"><%= game.title %></h2>
+
+                            <div class="game-card__actions">
+                                <button class="btn btn-primary" style="flex:1">Download</button>
+                            </div>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+
+        <div style="margin-top: 40px;">
+            <a href="/" class="btn btn-ghost">Back to Store</a>
+        </div>
+    </main>
+</body>
+</html>
