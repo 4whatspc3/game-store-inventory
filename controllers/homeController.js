@@ -1,4 +1,4 @@
-import { getAllGames, getGamesByGenre, getGenreById, getAllGenres } from "../db/queries.js";
+import { getAllGames, getGamesByGenre, getGenreById, getAllGenres, getGameByIdComplete } from "../db/queries.js";
 
 const homeController = async (req, res, next) => {
     try {
@@ -36,4 +36,13 @@ const userLibraryGet = async (req, res, next) => {
     }
 };
 
-export { homeController, genreController, userLibraryGet };
+const gameDetailsGet = async (req, res, next) => {
+    try {
+        const game = await getGameByIdComplete(Number(req.params.id));
+        res.render("home/storeGameDetails", { game });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { homeController, genreController, userLibraryGet, gameDetailsGet };

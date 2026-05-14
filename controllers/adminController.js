@@ -3,9 +3,13 @@ import { deleteGame,
         getGameById, 
         getGameDetails, 
         getGames, 
-        insertGameGenre, 
-        insertNewGame, 
         insertNewGenre, 
+        insertNewGame, 
+        insertGameGenre,
+        insertPlatform,
+        insertDeveloper,
+        insertGamePlatform,
+        insertGameDeveloper, 
         updateGame} from "../db/queries.js";
 
 const adminForms = (req, res, next) => {
@@ -40,23 +44,41 @@ const getGameDetailsController = async (req, res, next) => {
 };
 
 const adminAddGame = async (req, res, next) => {
-    try{
+    try {
         const { rawg_id, price } = req.body;
 
-        const game = await getGameDetails(Number(rawg_id));
+        const data = await getGameDetails(rawg_id);
 
-        const gameId = await insertNewGame(game.name, game.description_raw, game.released, game.background_image, price);
+        const gameId = await insertNewGame(
+            data.name,
+            data.description_raw,
+            data.released,
+            data.background_image,
+            price,
+            data.rating,
+            data.metacritic
+        );
 
-        for (const genre of game.genres) {
+        for (const genre of data.genres) {
             const genreId = await insertNewGenre(genre.name);
-            await insertGameGenre(gameId, genreId)
+            await insertGameGenre(gameId, genreId);
         }
-        
+
+        for (const el of data.platforms) {
+            const platformId = await insertPlatform(el.platform.name);
+            await insertGamePlatform(gameId, platformId);
+        }
+
+        for (const dev of data.developers) {
+            const developerId = await insertDeveloper(dev.name);
+            await insertGameDeveloper(gameId, developerId);
+        }
+
         res.redirect("/admin/library");
     } catch (error) {
-        next (error)
+        next(error);
     }
-}
+};
 
 const adminDeleteGame = async (req, res, next) => {
     try {

@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { genreController, homeController, userLibraryGet } from '../controllers/homeController.js';
+import { gameDetailsGet, genreController, homeController, userLibraryGet } from '../controllers/homeController.js';
 import { favoritesAdd, favoritesGet, favoritesRemove } from '../controllers/favoriteController.js';
 import { cartCheckout, cartAdd, cartRemove, cartGet } from '../controllers/cartController.js';
 
 const homeRouter = Router();
 
 homeRouter.get("/genres/:id", genreController);
+homeRouter.get("/games/:id", gameDetailsGet);
 
 homeRouter.post("/favorites/add", favoritesAdd);
 homeRouter.post("/favorites/remove", favoritesRemove);
