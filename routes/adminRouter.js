@@ -7,6 +7,7 @@ import { adminAddGame,
         adminEditGamePost, 
         adminForms, 
         adminLibrary, 
+        adminLibraryByGenre, 
         getGameDetailsController, 
         getGamesController } from "../controllers/adminController.js";
 import { adminLoginGet, adminLoginPost, adminLogout } from "../controllers/adminLoginController.js";
@@ -36,6 +37,8 @@ adminRouter.post("/games/:id/edit", adminEditGamePost);
 adminRouter.post("/games/add", formValidator, validate, adminAddGame);
 
 adminRouter.get("/search/:id/details/", getGameDetailsController);
+
+adminRouter.get('/library/genres/:id', adminLibraryByGenre);
 
 adminRouter.get("/library", adminLibrary);
 

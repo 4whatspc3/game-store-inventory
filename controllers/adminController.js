@@ -2,7 +2,7 @@ import { getGames, getGameDetails } from "../db/queries/apiQueries.js";
 
 import { insertNewGame, deleteGame, getGameById, updateGame, getAllGames } from "../db/queries/gameQueries.js";
 
-import { insertNewGenre, insertGameGenre } from "../db/queries/genreQueries.js";
+import { insertNewGenre, insertGameGenre, getAllGenres, getGamesByGenre } from "../db/queries/genreQueries.js";
 
 import { insertPlatform, insertGamePlatform } from "../db/queries/platformQueries.js";
 
@@ -108,7 +108,23 @@ const adminEditGamePost = async (req, res, next) => {
 const adminLibrary = async (req, res, next) => {
     try {
         const games = await getAllGames();
-        res.render("admin/library", { games });
+        
+        const genres = await getAllGenres();
+
+        res.render("admin/library", { games, genres });
+    } catch (error) {
+        next(error);
+    }
+}
+
+const adminLibraryByGenre = async (req, res, next) => {
+    try {
+        const genreId = Number(req.params.id);
+        
+        const games = await getGamesByGenre(genreId);
+        const genres = await getAllGenres();
+        
+        res.render("admin/library", { games, genres, currentGenreId: genreId });
     } catch (error) {
         next(error);
     }
@@ -120,5 +136,6 @@ export { getGamesController,
         adminAddGame,
         adminDeleteGame,
         adminLibrary,
+        adminLibraryByGenre,
         adminEditGameGet,
         adminEditGamePost };
