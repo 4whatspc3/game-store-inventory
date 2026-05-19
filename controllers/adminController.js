@@ -1,16 +1,12 @@
-import { deleteGame, 
-        getAllGames, 
-        getGameById, 
-        getGameDetails, 
-        getGames, 
-        insertNewGenre, 
-        insertNewGame, 
-        insertGameGenre,
-        insertPlatform,
-        insertDeveloper,
-        insertGamePlatform,
-        insertGameDeveloper, 
-        updateGame} from "../db/queries.js";
+import { getGames, getGameDetails } from "../db/queries/apiQueries.js";
+
+import { insertNewGame, deleteGame, getGameById, updateGame, getAllGames } from "../db/queries/gameQueries.js";
+
+import { insertNewGenre, insertGameGenre } from "../db/queries/genreQueries.js";
+
+import { insertPlatform, insertGamePlatform } from "../db/queries/platformQueries.js";
+
+import { insertDeveloper, insertGameDeveloper } from "../db/queries/developerQueries.js";
 
 const adminForms = (req, res, next) => {
     try {

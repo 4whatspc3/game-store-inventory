@@ -1,4 +1,6 @@
-import { getAllGames, getGamesByGenre, getGenreById, getAllGenres, getGameByIdComplete } from "../db/queries.js";
+import { getAllGames, getGameByIdComplete } from "../db/queries/gameQueries.js";
+
+import { getAllGenres, getGenreById, getGamesByGenre } from "../db/queries/genreQueries.js";
 
 const homeController = async (req, res, next) => {
     try {

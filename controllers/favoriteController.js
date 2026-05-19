@@ -1,4 +1,4 @@
-import { getGameById } from "../db/queries.js";
+import { getGameById } from "../db/queries/gameQueries.js";
 import { addGame, removeGame } from "../utils/addAndRemove.js";
 
 const favoritesGet = (req, res, next) => {
