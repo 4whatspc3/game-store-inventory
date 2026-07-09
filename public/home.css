@@ -185,7 +185,7 @@
 }
 
 .game-card__release {
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: var(--text-muted);
     letter-spacing: 0.06em;
     text-transform: uppercase;

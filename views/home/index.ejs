@@ -52,7 +52,7 @@
 
                         <div class="game-card__body">
                             <div class="game-card__meta">
-                                <span class="game-card__release"><%= game.release_date %></span>
+                                <span class="game-card__release"><%= new Date(game.release_date).toLocaleDateString('pt-BR') %></span>
                                 <span class="game-card__price">$<%= game.price %></span>
                             </div>
                             
