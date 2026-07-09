@@ -31,7 +31,7 @@
                 <div class="details-meta">
                     <div class="details-meta__item">
                         Released 
-                        <b><%= game.release_date %></b>
+                        <b class="game-card__release"><%= new Date(game.release_date).toLocaleDateString('pt-BR') %></b>
                     </div>
                     <div class="details-meta__item">
                         Rating 
