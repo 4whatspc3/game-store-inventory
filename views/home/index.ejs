@@ -27,10 +27,13 @@
         <div class="section-divider"></div>
 
         <div class="filter-bar">
-            <select onchange="if(this.value) window.location.href='/genres/' + this.value">
+            <select onchange="if(this.value) window.location.href='/genres/' + this.value; else window.location.href='/'" >
                 <option value="">All Genres</option>
                 <% genres.forEach((genre) => { %>
-                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                    <option value="<%= genre.id %>" <%= selectedGenre === genre.name ? 'selected' : '' 
+                    %>>
+                    <%= genre.name %>
+                    </option>
                 <% }) %>
             </select>
         </div>
